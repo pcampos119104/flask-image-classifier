@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+   api: 
+       build: ./api
+       ports:
+           - "8080:5000"
+       depends_on:
+           - db
+       command: gunicorn -b 0.0.0.0:5000 --workers 1 --threads 8 app:app
+       volumes:
+           - ./api/code:/app
+   db:
+       image: 'mongo:3.4.6'
